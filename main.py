@@ -8,11 +8,10 @@ import os
 app = FastAPI()
 
 templates = Jinja2Templates(directory="web_interface")
+rf_model = joblib.load("models/Models/random_forest_model.pkl")
+lr_model = joblib.load("models/Models/logistic_model.pkl")
 
-rf_model = joblib.load("models/random_forest_model.pkl")
-lr_model = joblib.load("models/logistic_model.pkl")
-
-scaler = joblib.load("models/cv_scaler.pkl")
+scaler = joblib.load("models/Models/cv_scaler.pkl")
 
 @app.get("/")
 async def read_root(request: Request):
