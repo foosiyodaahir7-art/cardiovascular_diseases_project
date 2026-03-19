@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeartGuard AI | Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; padding: 20px; }
+        .container { background: #1e293b; padding: 30px; border-radius: 15px; width: 900px; display: flex; gap: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .form-section { flex: 1; }
+        .result-section { flex: 1; background: #334155; padding: 20px; border-radius: 10px; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 0.9em; color: #94a3b8; }
+        input, select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #475569; background: #1e293b; color: white; }
+        button { width: 100%; padding: 12px; background: #3b82f6; border: none; color: white; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .card { background: #1e293b; padding: 15px; margin-bottom: 15px; border-radius: 8px; border-left: 5px solid #3b82f6; }
+        .risk { border-left-color: #ef4444; color: #ef4444; }
+        .healthy { border-left-color: #22c55e; color: #22c55e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h2>    ❤️ HeartGuard AI   </h2>
+             <p style="color:#2c6ef3; font-size:18px">Medical-grade Heart Disease Prediction Model.</p>
+            <form action="/predict" method="post">
+                <div class="input-group"><label>Age (Years)</label><input type="number" name="age" required></div>
+                <!-- <div class="input-group"><label>Gender</label><select name="gender"><option value="1">Female</option><option value="2">Male</option></select></div> -->
+                <div class="input-group"><label>Height (cm)</label><input type="number" name="height" required></div>
+                <div class="input-group"><label>Weight (kg)</label><input type="number" name="weight" required></div>
+                <div class="input-group"><label>Systolic BP (ap_hi)</label><input type="number" name="ap_hi" required></div>
+                <div class="input-group"><label>Diastolic BP (ap_lo)</label><input type="number" name="ap_lo" required></div>
+                <div class="input-group">
+                 <label for="gender">Patient Gender</label>
+                  <select name="gender" id="gender" required>
+                 <option value="" disabled selected>-- Select Gender --</option>
+                 <option value="1">Female</option>
+                <option value="2">Male</option>
+                </select>
+               </div>
+                <div class="input-group">
+                <label>Glucose Level</label>
+               <select name="glucose">
+               <option value="1">Normal</option>
+               <option value="2">Above Normal</option>
+               <option value="3">Well Above Normal</option>
+               </select>
+               </div>
+
+               <div class="input-group">
+               <label>Physical Activity</label>
+               <select name="physical_activity">
+               <option value="1">Active</option>
+               <option value="0">Inactive</option>
+               </select>
+               </div>
+                <div class="input-group"><label>Cholesterol</label><select name="cholesterol"><option value="1">Normal</option><option value="2">High</option><option value="3">Very High</option></select></div>
+                <div class="input-group"><label>Smoker</label><select name="smoke"><option value="0">No</option><option value="1">Yes</option></select></div>
+                <button type="submit">Get Professional Prediction</button>
+            </form>
+        </div>
+
+
+          <div class="result-section">
+    <h3>Prediction Results</h3>
+    {% if results %}
+        <div class="card {{ results.rf_class }}">
+            <div style="display: flex; justify-content: space-between;">
+                <strong>Random Forest:</strong>
+                <span style="font-size: 0.8em;">Acc: {{ results.rf_acc }}</span>
+            </div>
+            <p style="font-size: 1.2em; font-weight: bold; margin-top: 10px;">{{ results.rf }}</p>
+        </div>
+
+        <div class="card {{ results.lr_class }}">
+            <div style="display: flex; justify-content: space-between;">
+                <strong>Logistic Regression:</strong>
+                <span style="font-size: 0.8em;">Acc: {{ results.lr_acc }}</span>
+            </div>
+            <p style="font-size: 1.2em; font-weight: bold; margin-top: 10px;">{{ results.lr }}</p>
+      
+        </div>
+
+        <div style="background: #0f172a; padding: 10px; border-radius: 5px; font-size: 0.85em; margin-top: 20px; border: 1px dashed #475569;">
+            <p>ℹ️ <strong>Recommended Action:</strong> Based on the analysis, further clinical consultation is advised.</p>
+        </div>
+        
+    {% else %}
+        <div style="opacity: 0.5; text-align: center; margin-top: 60px;">
+            <div style="font-size: 40px; margin-bottom: 10px;"></div>
+            <p>No analysis performed yet.</p>
+            <p style="font-size: 0.8em;">Results will appear here after clicking "Analyze Risk".</p>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>
