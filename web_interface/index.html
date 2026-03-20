@@ -18,22 +18,26 @@
         .healthy { border-left-color: #22c55e; color: #22c55e; }
 
       
-        .risk-text { 
-            background: rgba(239, 68, 68, 0.1); 
-            border: 1px dashed #bf0404; 
-            color: #f3f3f3; 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin-top: 15px;
-        }
-        .healthy-text { 
-            background: rgba(34, 197, 94, 0.1); 
-            border: 1px dashed #22c55e; 
-            color: #22c55e; 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin-top: 15px;
-        }
+       
+.risk-box {
+    background-color: #ffcccc;
+    border: 2px solid #ff0000; 
+    color: #cc0000;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+
+.healthy-box {
+    background-color: #d4edda; 
+    border: 2px solid #28a745; 
+    color: #155724;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
     </style>
 </head>
 <body>
@@ -57,24 +61,45 @@
                 </div>
                 <div class="input-group">
                     <label>Glucose Level</label>
-                    <select name="glucose">
-                        <option value="1">Normal</option>
+                    <select name="gluc"> <option value="1">Normal</option>
                         <option value="2">Above Normal</option>
                         <option value="3">Well Above Normal</option>
                     </select>
                 </div>
+
                 <div class="input-group">
                     <label>Physical Activity</label>
-                    <select name="physical_activity">
-                        <option value="1">Active</option>
+                    <select name="active"> <option value="1">Active</option>
                         <option value="0">Inactive</option>
                     </select>
                 </div>
-                <div class="input-group"><label>Cholesterol</label><select name="cholesterol"><option value="1">Normal</option><option value="2">High</option><option value="3">Very High</option></select></div>
-                <div class="input-group"><label>Smoker</label><select name="smoke"><option value="0">No</option><option value="1">Yes</option></select></div>
-                <button type="submit">Get Professional Prediction</button>
-            </form>
-        </div>
+
+                 <!-- <div class="input-group">
+                    <label>Alcohol Intake</label>
+                    <select name="alco">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div> -->
+
+                <div class="input-group">
+                    <label>Cholesterol</label>
+                    <select name="cholesterol">
+                        <option value="1">Normal</option>
+                        <option value="2">High</option>
+                        <option value="3">Very High</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Smoker</label>
+                    <select name="smoke">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+
+                <button type="submit">Get Professional Prediction</button>>
 
        <div class="result-section">
             <h3>Prediction Results</h3>
