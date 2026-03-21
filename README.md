@@ -15,16 +15,16 @@ Medical data: Age, Gender, Height, Weight.
 Health measurements: Blood Pressure (High/Low), Cholesterol levels, and Glucose.
 
 Lifestyle: Whether the person smokes, drinks alcohol, or stays active (physical activity).
-
+## Note Based on the project refinement, the "Alcohol" feature was removed from the input data and model logic to focus on the remaining 10 features.
 
 
 #  Technical Overview
 To meet the project requirements and evaluation criteria, this system includes:
 
-* Data: Cleaned and preprocessed 70,000 patient records from Kaggle.
-* Algorithms: Implemented and compared Random Forest (Best performing) and Logistic Regression.
-* Evaluation: Achieved a prediction accuracy of 73-75%.
-* API: Fully functional REST API built with FastAPI for real-time predictions.
+ Data: Cleaned and preprocessed 70,000 patient records from Kaggle.
+ Algorithms: Implemented and compared Random Forest (Best performing) and Logistic Regression.
+ Evaluation: Achieved a prediction accuracy of 73-75%.
+ API: Fully functional REST API built with FastAPI for real-time predictions.
 
 
  # How I built it (Algorithms)
@@ -37,7 +37,7 @@ Logistic Regression: I used this as a baseline to compare the results.
 The models were trained in Python using libraries like scikit-learn, pandas, and joblib.
 
 # How to run the project
-First, make sure you have the requirements installed. Then:
+First, make sure you have the requirements installed. Then
 
 1. To train the models again
 
@@ -66,7 +66,6 @@ curl -X 'POST' \
   "cholesterol": 2,
   "gluc": 1,
   "smoke": 0,
-  "alco": 0,
   "active": 1
 }'
  # Final Results

@@ -12,6 +12,11 @@ rf_model = joblib.load("models/Models/random_forest_model.pkl")
 lr_model = joblib.load("models/Models/logistic_model.pkl")
 scaler = joblib.load("models/Models/cv_scaler.pkl")
 
+@app.get("/")
+async def read_root(request: Request):
+    
+    return templates.TemplateResponse("index.html", {"request": request, "results": None})
+
 @app.post("/predict")
 async def predict(
     request: Request,
@@ -28,28 +33,23 @@ async def predict(
 ):
     try:
         
-        # 1. Age maalmo u beddel
         age_days = age * 365
-        
-        # 2. ISKU XIGXIGA SAXDA AH (Waa inuu ahaadaa 10 shay oo u xiga sidan)
         input_data = np.array([[
-            age_days,      # 1. Maalmaha (Aad u muhiim ah)
-            gender,        # 2. Lab/Dheddig
-            height,        # 3. Dhererka
-            weight,        # 4. Miisaanka
-            ap_hi,         # 5. Dhiig-karka Sare
-            ap_lo,         # 6. Dhiig-karka Hoose
-            cholesterol,   # 7. Cholesterol
-            gluc,          # 8. Glucose
-            smoke,         # 9. Cabista sigaarka
-            active         # 10. Dhaqdhaqaaqa jirka
+            age_days,      
+            gender,        
+            height,        
+            weight,        
+            ap_hi,         
+            ap_lo,       
+            cholesterol,   
+            gluc,          
+            smoke,         
+            active         
         ]])
 
-        
-        features_scaled = scaler.transform(input_data)
-
-        rf_prob = rf_model.predict_proba(features_scaled)[0][1]
-        lr_prob = lr_model.predict_proba(features_scaled)[0][1]
+        input_data_scaled = scaler.transform(input_data)
+        rf_prob = rf_model.predict_proba(input_data_scaled)[0][1]
+        lr_prob = lr_model.predict_proba(input_data_scaled)[0][1]
 
         if ap_hi < 130 and weight < 85:
             rf_is_risk = False
