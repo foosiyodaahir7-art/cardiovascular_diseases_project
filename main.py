@@ -1,6 +1,5 @@
 from fastapi import FastAPI, Form, Request
 from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
 import numpy as np
 import joblib
 import os
@@ -8,14 +7,15 @@ import os
 app = FastAPI()
 
 templates = Jinja2Templates(directory="web_interface")
+
 rf_model = joblib.load("models/Models/random_forest_model.pkl")
 lr_model = joblib.load("models/Models/logistic_model.pkl")
 scaler = joblib.load("models/Models/cv_scaler.pkl")
 
 @app.get("/")
 async def read_root(request: Request):
-    
-    return templates.TemplateResponse("index.html", {"request": request, "results": None})
+   
+    return templates.TemplateResponse("index.html", {"request": request, "results": {}})
 
 @app.post("/predict")
 async def predict(
@@ -32,24 +32,15 @@ async def predict(
     active: int = Form(...)
 ):
     try:
-        
         age_days = age * 365
         input_data = np.array([[
-            age_days,      
-            gender,        
-            height,        
-            weight,        
-            ap_hi,         
-            ap_lo,       
-            cholesterol,   
-            gluc,          
-            smoke,         
-            active         
+            age_days, gender, height, weight, ap_hi, ap_lo, cholesterol, gluc, smoke, active
         ]])
 
         input_data_scaled = scaler.transform(input_data)
-        rf_prob = rf_model.predict_proba(input_data_scaled)[0][1]
-        lr_prob = lr_model.predict_proba(input_data_scaled)[0][1]
+        
+        rf_prob = float(rf_model.predict_proba(input_data_scaled)[0][1])
+        lr_prob = float(lr_model.predict_proba(input_data_scaled)[0][1])
 
         if ap_hi < 130 and weight < 85:
             rf_is_risk = False
@@ -65,7 +56,8 @@ async def predict(
             final_recommendation = "Your results are normal. Keep maintaining a healthy lifestyle!"
             final_class = "healthy-box"
 
-        results = {
+        
+        results_data = {
             "rf": "High Risk" if rf_is_risk else "Healthy",
             "lr": "High Risk" if lr_is_risk else "Healthy",
             "rf_class": "risk-card" if rf_is_risk else "healthy-card",
@@ -76,8 +68,8 @@ async def predict(
             "rec_class": final_class
         }
 
-        return templates.TemplateResponse("index.html", {"request": request, "results": results})
+        return templates.TemplateResponse("index.html", {"request": request, "results": results_data})
 
     except Exception as e:
-       
-        return {"error": str(e)}
+        
+        return templates.TemplateResponse("index.html", {"request": request, "results": {"error": str(e)}})
