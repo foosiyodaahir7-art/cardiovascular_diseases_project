@@ -6,7 +6,7 @@ import os
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="src/web_interface")
+templates = Jinja2Templates(directory="web_interface")
 
 rf_model = joblib.load("models/Models/random_forest_model.pkl")
 lr_model = joblib.load("models/Models/logistic_model.pkl")
