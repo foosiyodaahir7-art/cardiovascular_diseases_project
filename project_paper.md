@@ -1,5 +1,6 @@
-Cardiovascular Disease Prediction: Final Project Report & Reflection
-Student Name: Fosia Dahir Ibrahim
+Name: Fosia Dahir Ibrahim
+
+## Cardiovascular Disease Prediction: Final Project Report & Reflection
 
 Date: March 6, 2026
 
@@ -12,7 +13,7 @@ By looking at simple data like blood pressure, cholesterol, and age, I wanted to
 2. Dataset & Preprocessing
 For this project, I used a dataset of 70,000 patients from Kaggle. However, I quickly learned that real-world data is very "messy."
 
-How I cleaned the data:
+## How I cleaned the data
 
 Fixing Outliers: I noticed some blood pressure readings were impossible (like 10,000 or negative numbers). I filtered these out so they wouldn't confuse the AI.
 
