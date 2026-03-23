@@ -14,7 +14,7 @@ scaler = joblib.load("models/Models/cv_scaler.pkl")
 
 @app.get("/")
 async def read_root(request: Request):
-   
+      
     return templates.TemplateResponse("index.html", {"request": request, "results": {}})
 
 @app.post("/predict")
